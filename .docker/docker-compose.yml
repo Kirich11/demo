@@ -1,0 +1,56 @@
+name: demo
+
+services:
+    app:
+        build:
+            context: ../
+            dockerfile: .docker/Dockerfile
+            target: app
+        env_file:
+            - ../.env
+        ports:
+            - 8080:8080
+        depends_on:
+            pgsql:
+                condition: service_healthy
+        networks:
+            - demo
+
+    dev:
+        build:
+            context: ../
+            dockerfile: .docker/Dockerfile
+            target: dev
+        env_file:
+            - ../.env
+        depends_on:
+            pgsql:
+                condition: service_healthy
+        volumes:
+            - ../src/main/resources/db/migrations:/home/gradle/src/src/main/resources/db/migrations
+        networks:
+            - demo
+
+    pgsql:
+        image: postgres:17-alpine
+        environment:
+            POSTGRES_USER: test
+            POSTGRES_PASSWORD: test
+            POSTGRES_DB: demo
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+            interval: 5s
+            timeout: 10s
+            retries: 5
+            start_period: 15s
+        networks:
+            - demo
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+
+networks:
+  demo:
+    driver: bridge
+
+volumes:
+    pgdata:
