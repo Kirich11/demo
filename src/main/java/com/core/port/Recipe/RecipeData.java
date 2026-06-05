@@ -1,9 +1,13 @@
-package com.domain.port.Recipe;
+package com.core.port.Recipe;
 
 import java.time.Instant;
 import java.util.UUID;
 
-public class RecipeData {
+import lombok.Data;
+import lombok.NonNull;
+import lombok.Value;
+
+@Value @Data public class RecipeData {
     public final RecipeId id;
     public final String title;
     public final String description;
@@ -11,11 +15,11 @@ public class RecipeData {
     public final Instant updatedAt;
 
     public RecipeData(
-        UUID id,
-        String title,
+        @NonNull UUID id,
+        @NonNull String title,
         String description,
-        Instant createdAt,
-        Instant updatedAt
+        @NonNull Instant createdAt,
+        @NonNull Instant updatedAt
     ) {
         this.id = new RecipeId(id);
         this.title = title;

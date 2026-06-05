@@ -2,7 +2,7 @@ CREATE SCHEMA IF NOT EXISTS dbo;
 
 CREATE TABLE dbo.recipes
 (
-   id         VARCHAR(36)                               NOT NULL,
+   id         UUID                                      NOT NULL,
    title      VARCHAR(200)                              NOT NULL,
    descr      VARCHAR(500)                              NOT NULL,
    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

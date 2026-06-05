@@ -40,9 +40,9 @@ dependencyManagement {
 
 flyway {
     url = "jdbc:postgresql://${System.getenv('DB_HOST') ?: 'localhost'}:${System.getenv('DB_PORT') ?: '5432'}/${System.getenv('DB_NAME') ?: 'demo'}"
-    user = System.getenv('DB_USER') ?: 'postgres'
-    password = System.getenv('DB_PASSWORD') ?: 'secret'
-    schemas = ['migrations']
+    user = System.getenv('DB_USER') ?: 'test'
+    password = System.getenv('DB_PASSWORD') ?: 'test'
+    schemas = ['dbo']
 	baselineOnMigrate = true
 	driver = 'org.postgresql.Driver'
 	locations = ['filesystem:src/main/resources/db/migrations/postgresql']
@@ -61,6 +61,12 @@ dependencies {
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-database-postgresql'
+
+	compileOnly("org.projectlombok:lombok:1.18.46")
+	annotationProcessor("org.projectlombok:lombok:1.18.46")
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testCompileOnly("org.projectlombok:lombok:1.18.46")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
 }

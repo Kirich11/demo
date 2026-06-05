@@ -17,9 +17,4 @@ public class AboutController {
         model.addAttribute("appName", appName);
         return "about";
     }
-
-    @GetMapping("/debug")
-    public String debug() {
-        return "debug";
-    }
 }

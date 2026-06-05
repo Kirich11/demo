@@ -1,36 +1,40 @@
-package com.domain.Recipe;
+package com.core.domain.Recipe;
 
 import java.time.Instant;
 import java.util.UUID;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.UuidGenerator.Style;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
 @Entity
 @Table(name="recipes")
-public class Recipe {
+public final class Recipe {
     
     @Id
+    @UuidGenerator(style = Style.VERSION_7)
     @Column(name = "id", nullable = false, unique = true)
-    private UUID id;
+    @Getter private UUID id;
 
     @Column(nullable = false, unique = true, length = 200)
-    private String title;
+    @Getter private String title;
 
     @Column(name="descr", nullable = false, unique = true, length = 500)
-    private String description;
+    @Getter private String description;
     
     @ColumnDefault("now()")
     @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
+    @Getter private Instant createdAt;
 
     @ColumnDefault("now()")
     @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
+    @Getter private Instant updatedAt;
 
     public Recipe(
         UUID id,
@@ -51,7 +55,7 @@ public class Recipe {
         String description
     ) {
         Recipe recipe = new Recipe(
-            UUID.ofEpochMillis(Instant.now().toEpochMilli()),
+            null,
             title,
             description,
             Instant.now(),
@@ -59,9 +63,5 @@ public class Recipe {
         );
 
         return recipe;
-    }
-
-    public UUID getId() {
-        return this.id;
     }
 }

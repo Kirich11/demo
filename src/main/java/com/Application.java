@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableJpaRepositories("com.infrastructure.*.Persistance")
-@EntityScan("com.domain")
+@EnableJpaRepositories("com.core")
+@EnableTransactionManagement
+@EntityScan("com.core")
 @SpringBootApplication(scanBasePackages = "com")
 public class Application {
 

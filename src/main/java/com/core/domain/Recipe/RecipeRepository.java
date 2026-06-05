@@ -1,4 +1,4 @@
-package com.infrastructure.Recipe.Persistance;
+package com.core.domain.Recipe;
 
 import java.util.List;
 import java.util.UUID;
@@ -6,8 +6,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import com.domain.Recipe.Recipe;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
