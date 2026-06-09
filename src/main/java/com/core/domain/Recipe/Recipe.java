@@ -12,29 +12,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name="recipes")
+@Getter
+@Setter
 public final class Recipe {
     
     @Id
     @UuidGenerator(style = Style.VERSION_7)
     @Column(name = "id", nullable = false, unique = true)
-    @Getter private UUID id;
+    private UUID id;
 
     @Column(nullable = false, unique = true, length = 200)
-    @Getter private String title;
+    private String title;
 
     @Column(name="descr", nullable = false, unique = true, length = 500)
-    @Getter private String description;
+    private String description;
     
     @ColumnDefault("now()")
     @Column(name = "created_at", nullable = false)
-    @Getter private Instant createdAt;
+    private Instant createdAt;
 
     @ColumnDefault("now()")
     @Column(name = "updated_at", nullable = false)
-    @Getter private Instant updatedAt;
+    private Instant updatedAt;
+
+    public Recipe(){};
 
     public Recipe(
         UUID id,

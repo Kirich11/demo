@@ -1,5 +1,6 @@
 package com.application.Recipe;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,15 @@ import com.core.application.Recipe.RecipeFacade;
 public class RecipeFacadeTest {
     
     @Test
-    void itCreatesARecipe(@Autowired RecipeFacade recipeApp) {
-        final var result = recipeApp.createRecipe("some title", "some description");
-        assertNotNull(result);
+    void itCreatesAndReturnsRecipe(@Autowired RecipeFacade recipeApp) {
+        String title = "some title";
+        String description = "some description";
+        final var commandResult = recipeApp.createRecipe(title, description);
+        assertNotNull(commandResult);
+
+        final var queryResult = recipeApp.getRecipeById(commandResult);
+        assertNotNull(commandResult);
+        assertEquals(title, queryResult.title);
+        assertEquals(description, queryResult.description);
     }
 }

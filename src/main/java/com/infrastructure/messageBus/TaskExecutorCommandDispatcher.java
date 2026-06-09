@@ -13,12 +13,12 @@ import com.core.port.messageBus.command.CommandHandlerInterface;
 import com.core.port.messageBus.command.CommandInterface;
 import com.core.port.messageBus.command.CommandResult;
 
-public class ThreadPoolCommandDispatcher implements CommandDispatcher {
+public class TaskExecutorCommandDispatcher implements CommandDispatcher {
 
     private final TaskExecutor commandExecutor;
     private final ApplicationContext ctx;
 
-    public ThreadPoolCommandDispatcher(TaskExecutor commandExecutor, ApplicationContext ctx) {
+    public TaskExecutorCommandDispatcher(TaskExecutor commandExecutor, ApplicationContext ctx) {
         this.commandExecutor = commandExecutor;
         this.ctx = ctx;
     }
