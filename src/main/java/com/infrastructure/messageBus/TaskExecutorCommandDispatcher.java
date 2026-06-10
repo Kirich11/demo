@@ -36,7 +36,11 @@ public class TaskExecutorCommandDispatcher implements CommandDispatcher {
             return result.get();
         } catch (ExecutionException | InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Command execution failed: " + commandClass.getSimpleName(), e);
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+
+            return null;
         }
     }
 

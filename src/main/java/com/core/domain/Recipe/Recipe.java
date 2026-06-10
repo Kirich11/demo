@@ -69,4 +69,10 @@ public final class Recipe {
 
         return recipe;
     }
+
+    public void update(String title, String description) {
+        this.title = title;
+        this.description = description;
+        this.updatedAt = Instant.now();
+    }
 }

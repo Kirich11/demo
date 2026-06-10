@@ -49,7 +49,12 @@ flyway {
 }
 
 tasks.named('test') {
+	jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
 	useJUnitPlatform()
+}
+
+configurations {
+    mockitoAgent
 }
 
 dependencies {
@@ -69,4 +74,9 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testCompileOnly("org.projectlombok:lombok:1.18.46")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
+
+	testImplementation 'org.mockito:mockito-core'
+	mockitoAgent('org.mockito:mockito-core') {
+        transitive = false
+    }
 }

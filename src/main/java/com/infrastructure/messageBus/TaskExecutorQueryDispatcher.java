@@ -36,7 +36,11 @@ public class TaskExecutorQueryDispatcher implements QueryDispatcher {
             return result.get();
         } catch (ExecutionException | InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Query execution failed: " + queryClass.getSimpleName(), e);
+            if (e.getCause() instanceof RuntimeException) {
+                throw new RuntimeException(e.getCause());
+            }
+            
+            return null;
         }
     }
 

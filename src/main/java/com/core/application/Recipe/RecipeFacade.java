@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.core.application.Recipe.commands.CreateRecipe.CreateRecipeCommand;
 import com.core.application.Recipe.commands.CreateRecipe.CreateRecipeCommandResult;
+import com.core.application.Recipe.commands.DeleteRecipe.DeleteRecipeCommand;
+import com.core.application.Recipe.commands.UpdateRecipe.UpdateRecipeCommand;
+import com.core.application.Recipe.commands.UpdateRecipe.UpdateRecipeCommandResult;
 import com.core.application.Recipe.queries.FindRecipeById.FindRecipeByIdQuery;
 import com.core.application.Recipe.queries.FindRecipeById.FindRecipeByIdQueryResult;
 import com.core.port.Recipe.RecipeData;
@@ -35,6 +38,18 @@ public class RecipeFacade {
 
     public RecipeData getRecipeById(RecipeId id) {
         final FindRecipeByIdQueryResult result = queryDispatcher.dispatchQuery(new FindRecipeByIdQuery(id));
+        if (result == null) {
+            return null;
+        }
         return result.data;
+    }
+
+    public RecipeId updateRecipe(RecipeId id, String title, String description) {
+        final UpdateRecipeCommandResult result = commandDispatcher.dispatchCommand(new UpdateRecipeCommand(id, title, description));
+        return result.id;
+    }
+
+    public void deleteRecipe(RecipeId id) {
+        commandDispatcher.dispatchCommand(new DeleteRecipeCommand(id));
     }
 }

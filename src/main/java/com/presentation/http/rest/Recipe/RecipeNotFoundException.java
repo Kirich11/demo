@@ -1,9 +1,9 @@
 package com.presentation.http.rest.Recipe;
 
-public class RecipeNotFoundException extends RuntimeException {
-        public RecipeNotFoundException(String message, Throwable cause) {
-            super(message, cause);
-        }
+import com.core.port.Recipe.RecipeId;
 
-        public RecipeNotFoundException() {}
+public class RecipeNotFoundException extends RuntimeException {
+        public RecipeNotFoundException(RecipeId id) {
+            super("Recipe '%s' not found".formatted(id.value));
+        }
 }
